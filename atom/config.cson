@@ -1,0 +1,27 @@
+"*":
+  "atom-beautify":
+    _analyticsUserId: "92ae145d-d9a3-457c-81d3-dfe7cbed71e5"
+  core:
+    themes: [
+      "atom-dark-ui"
+      "atom-dark-syntax"
+    ]
+  editor:
+    invisibles: {}
+  "exception-reporting":
+    userId: "ca9cc07f-a84f-20e7-7b90-80ed55d4fc90"
+  "formatter-json":
+    json: {}
+  "git-plus": {}
+  "git-status": {}
+  linter:
+    errorPanelHeight: 42
+  "terminal-plus":
+    core: {}
+    style: {}
+  welcome:
+    showOnStartup: false
+".apib.gfm.html.markdown.source.text":
+  editor:
+    showIndentGuide: true
+    softWrapHangingIndent: 1

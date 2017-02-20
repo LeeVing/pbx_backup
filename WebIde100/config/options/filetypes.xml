@@ -1,0 +1,27 @@
+<application>
+  <component name="FileTypeManager" version="16">
+    <ignoreFiles list="*.hprof;*.o;*.obj;*.pyc;*.pyo;*.rbc;*~;.DS_Store;.git;.hg;.svn;CVS;RCS;SCCS;__pycache__;_svn;rcs;" />
+    <extensionMap>
+      <mapping pattern="bashrc" type="Bash" />
+      <mapping pattern="profile" type="Bash" />
+      <mapping pattern="README" type="Markdown" />
+      <mapping pattern="readme" type="Markdown" />
+      <mapping ext="thtml" type="PHP" />
+      <mapping ext="ctp" type="PHP" />
+      <mapping pattern="index" type="PLAIN_TEXT" />
+      <mapping pattern="package" type="PLAIN_TEXT" />
+      <mapping pattern="git-inspect" type="PLAIN_TEXT" />
+      <mapping pattern="vagrant" type="PLAIN_TEXT" />
+      <mapping pattern="crontab" type="PLAIN_TEXT" />
+      <mapping pattern="COPYRIGHT" type="PLAIN_TEXT" />
+      <mapping pattern=".gitkeep" type="PLAIN_TEXT" />
+      <mapping pattern="config" type="PLAIN_TEXT" />
+      <mapping ext="cnf" type="PLAIN_TEXT" />
+      <mapping ext="gem" type="PLAIN_TEXT" />
+      <mapping ext="cscc" type="PLAIN_TEXT" />
+      <removed_mapping ext="rb" type="PLAIN_TEXT" />
+      <removed_mapping ext="cgi" type="PLAIN_TEXT" />
+      <mapping ext="pulm" type="PlantUML file" />
+    </extensionMap>
+  </component>
+</application>
