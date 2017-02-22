@@ -78,7 +78,7 @@ prompt_red="$prompt_bold$(tput setaf 9)" # BOLD RED
 prompt_blue="$prompt_bold$(tput setaf 27)" # BOLD RED
 
 ## declare an array variable
-declare -a folderList=('service-pbx' 'service-broadworks' 'service-auth' 'broadworks-provisioning-agent' 'service-allocation')
+declare -a folderList=('service-pbx' 'service-broadworks' 'service-auth' 'broadworks-provisioning-agent' 'service-allocation' 'fabric')
 
 # Functions
 
@@ -131,6 +131,10 @@ function processFolder(){
         checkoutRepo $folder
     fi
 
+    if [ ! -f "$newFolder/.gitreview" ]; then
+        gitReview $folder
+    fi
+
     normalDir="`cd "${newFolder}";pwd`"
     postMessage "Changing folders to $normalDir"
     cd $normalDir
@@ -162,6 +166,20 @@ function checkoutRepo(){
     cd $folder
     git clone ssh://$user@gerrit.coredial.com:29418/$repo && scp -p -P 29418 $user@gerrit.coredial.com:hooks/commit-msg $repo/.git/hooks/
     cd $DIR
+}
+
+function gitReview(){
+  repo=$1
+  folder=$DIR/../
+  cd $folder
+  echo \
+"[gerrit]
+host=gerrit.coredial.com
+port=29418
+project=$repo
+defaultremote=origin
+" > $repo/.gitreview
+  cd $DIR
 }
 
 function getFolderState(){

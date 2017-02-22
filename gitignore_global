@@ -5,3 +5,4 @@
 atlassian-ide-plugin.xml
 opcache/webgrind
 .vagrant
+.gitreview

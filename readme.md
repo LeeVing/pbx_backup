@@ -1,34 +1,37 @@
 **Fork this repo and make it your own!**
 
-clone into home folder ~/
+# How to Use
 
-These scripts assume you will place all git repos in $home/projects 
-and additional applications such as phpstorm in $home/apps
+## Configure Variables
 
-Search all files for <user_input> and change the values to your needs
+Set the following variables in installs/Makefile
 
-files that have <user_input>:
-* bashrc
-* gitconfig
-* wakatime.cfg
-* gnome/apps/jetbrains-phpstorm.desktop
-* gnome/apps/jetbrains-pycharm.desktop
+```sh
+gitBranch - The Git branch to check out for dev updates
+appsDir - The directory in which apps managed by this tool will be installed, defaults to ~/apps
+sourcesDir - The parent directory of your Git repos, defaults to ~/projects
+```
 
-run make from root directory
+Run make from the base directory of this repo
 
-this will install the basics. create a new ssh key and add it to github and gerrit, then run the following:
+```sh
+make
+```
 
- `
+This will install the basics.
+
+Create a new SSH key, add it to Github and Gerrit, then run the following:
+
+```sh
  cd installs/
  make programs
  make apps
- `
- 
-check the installs/makefile for list of programs apps and programs installs.
+```
 
-**BEFORE RUNNING MAKE DEV UPDATE THE gitBranch VARIABLE IN THE MAKEFILE!**
+Check installs/Makefile for a which apps are available for installation.
 
-running make dev from installs will create the projects folder in home and 
-download common git repos (chef, voiceaxis, ect..) also adds /projects/sync/ 
-where you can run the sync-branch.sh which will pull all broadworks repos 
-needed to whatever release specified. 
+Running make dev from installs will create your sourcesDir folder if it does not exist and 
+clone common git repos (chef, voiceaxis, etc..)
+
+It also adds the sync/ dir which contains sync-branch.sh, used for updating all broadworks repos needed to a specified release.
+

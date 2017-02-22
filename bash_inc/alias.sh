@@ -63,12 +63,12 @@ alias showBlocked='sudo ipfw list'                  # showBlocked:  All ipfw rul
 COREDIAL_LOCAL=true
 
 if [[ -n "$COREDIAL_LOCAL" ]]; then
-	alias vag="USER=${DEV_ENV} COREDIAL_ENV=dev VAGRANT_CWD=${VAGRANT} vagrant"
-	alias vp="USER=${DEV_ENV} COREDIAL_ENV=dev VAGRANT_CWD=${VAGRANT} vagrant provision"
-	alias vssh="USER=${DEV_ENV} COREDIAL_ENV=dev VAGRANT_CWD=${VAGRANT} vagrant ssh"
-	alias vup="USER=${DEV_ENV} COREDIAL_ENV=dev VAGRANT_CWD=${VAGRANT} vagrant up"
-	alias vdest="USER=${DEV_ENV} COREDIAL_ENV=dev VAGRANT_CWD=${VAGRANT} vagrant destroy"
-	alias vstat="(cd ~/projects/chef-repo/resources/vagrant && vagrant status)"
+	alias v="USER=${DEV_ENV} COREDIAL_ENV=dev VAGRANT_CWD=${VAGRANT} vagrant"
+	alias vp="v provision"
+	alias vssh="v ssh"
+	alias vup="v up"
+	alias vdest="v destroy"
+	alias vstat="v status"
 	alias vdir="cd ~/projects/chef-repo/resources/vagrant"
 else
 	alias vp="vagrant provision"
@@ -93,4 +93,5 @@ fi
         echo
     }
 
-alias vfix-api="bash ~/dotfiles/installs/fix-api-web.sh"
+alias vfix-api="fix-api-web"
+alias kc='kubectl --kubeconfig=./kube_config'

@@ -1,7 +1,8 @@
 [user]
-	name = <user_input>
-	email = <user_input>
+	name = <full_name>
+	email = <email>
 [core]
 	autocrlf = input
 [push]
 	default = matching
+
