@@ -76,41 +76,33 @@ atom: basics
 	apm install `cat ../atom.packages.list`
 	touch atom
 
-emacs: basics
-	$(aptInstall) build-essential ; \
-	sudo apt-get build-dep emacs24 ; \
-	cd $(SRCHOME) ; \
-	wget http://ftp.gnu.org/gnu/emacs/emacs-24.4.tar.gz ; \
-	tar -xzvf emacs-24.4.tar.gz ; \
-	rm emacs-24.4.tar.gz ; \
-	cd emacs-24.4 ; \
-	./configure --prefix=$(APPSHOME) ; \
-	make ; \
-	make install || sudo make install ; \
-	make clean ; \
-	if [ ! -f "/usr/local/bin/emacs" ]; then \
-		sudo ln -s $(APPSHOME)/bin/emacs /usr/local/bin/emacs ; \
-	fi ;\
-	touch emacs
+emacs244: basics
+	$(aptInstall) build-essential
+	sudo apt-get build-dep emacs24
+	cd $(APPSHOME)
+	wget http://ftp.gnu.org/gnu/emacs/emacs-24.4.tar.gz
+	tar -xzvf emacs-24.4.tar.gz
+	rm emacs-24.4.tar.gz
+	cd emacs-24.4
+	./configure --prefix=$(APPSHOME)
+	make
+	sudo make install
+	make clean
+	sudo ln -s $(APPSHOME)/emacs/bin/emacs /usr/local/bin/emacs244
 
-spacemacs: emacs
-	mv ~/.emacs.d ~/old_emacs_d
+spacemacs: emacs244
 	git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
 byobu:
 	$(aptInstall) byobu
 	touch byobu
 
-gitreview:
-	$(aptInstall) git-review
-	touch gitreview
-
 virtual:
 	$(aptInstall) virtualbox
 	touch virtual
 
 pip:
-	$(aptInstall) python-pip python-dev
+	$(aptInstall) python-pip
 	sudo pip install --upgrade pip
 	touch pip
 
@@ -123,18 +115,14 @@ docker:
 	wget -qO- https://get.docker.com/ | sh
 	sudo service docker start
 	sudo usermod -aG docker $(whoami)
-	echo "please logout and log back in before using Docker"
 	touch docker
 
-docker-compose: docker pip
+docker-compose: docker
+	 $(aptInstall) python-pip
 	 sudo pip install docker-compose
+	 sudo usermod -aG docker $(whoami)
+	 echo "please logout in order to run docker"
 	 touch docker-compose
-
-kubectl:
-	curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-	sudo mv kubectl /usr/local/bin
-	sudo chmod +x /usr/local/bin/kubectl
-	touch kubectl
 
 chrome: update
 	$(aptInstall) libxss1 libappindicator1 libindicator7
@@ -201,8 +189,7 @@ chefplugins:
 
 dev/sync: mksrcdir
 	mkdir -p $(SRCHOME)/sync
-	cp -f sync-branch.sh $(SRCHOME)/sync/
-	chmod +x $(SRCHOME)/sync/sync-branch.sh
+	cp -f dev_scripts/sync-branch.sh $(SRCHOME)/sync/
 	touch sync
 
 dev/chef: mksrcdir ruby chefplugins
@@ -232,6 +219,6 @@ dev/voiceaxis: mksrcdir
 dev/envup: chef sync node docker-compose
 	v up --no-provision chef_server && \
 	v provision chef_server && \
-	v up sbc app_mq1 app_mq2 agents web api_web ; \
+	v up app_mq1 app_mq2 agents web api_web ; \
 	cd $(SRCHOME)/sync && bash sync-branch.sh --branch $(gitBranch) ; \
 	cd $(SRCHOME)/service-pbx && $(MAKE) dev/build && $(MAKE) dev/up

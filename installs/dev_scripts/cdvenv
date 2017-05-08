@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ -z "$VIRTUAL_ENV" ]; then
+    echo "First, activate a virtualenv!"
+    exit 1
+fi
+
+cat <<EOT > $VIRTUAL_ENV/pip.conf
+[global]
+index-url = https://pypi.dev.coredial.com/pypi
+EOT
+
+cat <<EOT > $VIRTUAL_ENV/lib/python2.7/site-packages/z.pth
+import pkg_resources
+pkg_resources.fixup_namespace_packages('')
+EOT
+
