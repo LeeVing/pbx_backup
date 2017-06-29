@@ -204,7 +204,11 @@ chefplugins:
 	vagrant plugin install rack buff-extensions --plugin-version "<2.0"
 	touch chefplugins
 
-dev/sync: mksrcdir
+ssh_key:
+	ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
+	touch ssh_key
+
+dev/sync: mksrcdir ssh_key
 	echo "please add your public ssh key to gerrit." ; \
 	echo "" ; \
 	cat ~/.ssh/id_rsa.pub ; \
