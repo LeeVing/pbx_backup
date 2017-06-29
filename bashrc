@@ -52,7 +52,6 @@ fi
 export ALTERNATE_EDITOR=""
 
 # Tell grep to highlight matches
-export GREP_OPTIONS='--color=auto'
 export TERM=xterm-256color
 
 # Workaround for Intellij IDEA not liking old IBus versions
@@ -76,8 +75,8 @@ export DEV_ENV=<dev_env>
 export GERRIT_USERNAME=<gerrit_username>
 
 # Docker env vars
-export BW_PROV_AGENT_USERNAME=<bw_lab_username>
-export BW_PROV_AGENT_PASSWORD=<bw_lab_password>
+export BW_PROV_AGENT_USERNAME=''
+export BW_PROV_AGENT_PASSWORD=''
 export SERVICE_PBX_DB_URL="mysql://service_pbx:dr0az3eh@<dev_env>-agents.dev.coredial.com/service_pbx"
 export SERVICE_PBX_READONLY_PORTAL_URL="mysql://voiceaxis:dr0az3eh@<dev_env>-web.dev.coredial.com/voiceaxis"
 

@@ -1,29 +1,28 @@
 olddir=~/dotfiles_old
 files=bash_inc bashrc dockercfg fonts gnome \
       gitconfig gitignore_global git-prompt.sh  profile
+default_repo=~/projects
+default_apps=~/apps
+default_scripts=~/scripts
 
-all: init directories backup move install global
+all: init directories backup move install
 
 init:
 	read -p "What is your Coredial email address (for Git)? " email; \
 	read -p "What is your full name (for Git)? " full_name; \
-	read -p "Where do you keep your Git repos (full path please)? " repo_path; \
-	read -p "Where would you like to install apps managed by this tool (full path please)? " app_path; \
-	read -p "Where would you like to install scripts managed by this tool (full path please)? " script_path; \
-	read -p "What is your dev number [in format devXX] or username? " dev_env; \
-	read -p "What is your lab Broadworks username? " bw_lab_username; \
-	read -p "What is your lab Broadworks password? " bw_lab_password; \
+	read -p "Where do you keep your Git repos (full path please, Default: ~/projects)? " repo_path; \
+	read -p "Where would you like to install apps managed by this tool (full path please, Default: ~/apps)? " app_path; \
+	read -p "Where would you like to install bash scripts managed by this tool (full path please, Defaulr: ~/scripts)? " script_path; \
+	read -p "What is your dev number [format: XX]? " dev_env; \
 	read -p "What is your Gerrit username? " gerrit_username; \
-	sed -i -e "s/<repo_path>/$$repo_path/g" \
-	       -e "s/<app_path>/$$app_path/g" \
-	       -e "s/<script_path>/$$script_path/g" \
-	       -e "s/<dev_env>/$$dev_env/g" \
-	       -e "s/<bw_lab_username>/$$bw_lab_username/g" \
-	       -e "s/<bw_lab_password>/$$bw_lab_password/g" \
-	       -e "s/<gerrit_username>/$$gerrit_username/g" \
+	echo "$${repo_path:=$(default_repo)}"; \
+	sed -i -e "s|<repo_path>|$${repo_path:=$(default_repo)}|g" \
+	       -e "s|<app_path>|$${app_path:=$(default_apps)}|g" \
+	       -e "s|<script_path>|$${script_path:=$(default_scripts)}|g" \
+	       -e "s|<dev_env>|dev$${dev_env}|g" \
+	       -e "s|<gerrit_username>|$${gerrit_username}|g" \
 	    bashrc; \
-	sed -i -e "s/<email>/$$email/g" -e "s/<full_name>/$$full_name/g" gitconfig; \
-	sed -i -e "s/<username>/$(whoami)/g" gnome/apps/*; \
+	sed -i -e "s|<email>|$${email}|g" -e "s|<full_name>|$${full_name}|g" gitconfig
 	touch init
 
 directories:

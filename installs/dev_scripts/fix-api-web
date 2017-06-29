@@ -2,6 +2,29 @@
 
 ENV=${1:-$(hostname | cut -d '-' -f 1)}
 HOSTNAME=$ENV-api-web.dev.coredial.com
+HOSTNAME_WEB=$ENV-web.dev.coredial.com
 CMD="sudo sed -i 's/Deny from all/Allow from all/g' /etc/httpd/sites-available/voiceaxis.conf && sudo /sbin/service httpd restart"
+CMD_BOX="sudo sed -i 's/services.${ENV}.dev.accessapi.com/${ENV}-box.dev.coredial.com/g' /var/www/voiceaxis/config.inc.php"
+CMD_BOX_KUBE="sudo sed -i 's/${ENV}-kubes.dev.coredial.com/${ENV}-box.dev.coredial.com/g' /var/www/voiceaxis/config.inc.php"
+CMD_BOX_HTACCESS="sudo sed -i 's/services.${ENV}.dev.accessapi.com/${ENV}-box.dev.coredial.com/g' /var/www/voiceaxis/.htaccess"
+CMD_BOX_HTACCESS_KUBE="sudo sed -i 's/${ENV}-kubes/${ENV}-box/g' /var/www/voiceaxis/.htaccess"
+CMD_CHMOD="sudo chmod -R 777 /var/www/voiceaxis"
+
 printf "\033[0;32m%s:\033[0m\n" "$HOSTNAME"
+printf "\033[0;33m%s\033[0m\n" "Fixing Access"
 ssh -q $HOSTNAME $CMD
+printf "\033[0;33m%s\033[0m\n" "Fixing Config for Box"
+ssh -q $HOSTNAME $CMD_BOX_KUBE
+printf "\033[0;33m%s\033[0m\n" "Fixing CHMOD Access"
+ssh -q $HOSTNAME $CMD_CHMOD
+
+
+printf "\033[0;32m%s:\033[0m\n" "$HOSTNAME_WEB"
+printf "\033[0;33m%s\033[0m\n" "Fixing Config for Box"
+ssh -q $HOSTNAME_WEB $CMD_BOX_KUBE
+printf "\033[0;33m%s\033[0m\n" "Fixing Htaccess for Box"
+ssh -q $HOSTNAME_WEB $CMD_BOX_HTACCESS_KUBE
+printf "\033[0;33m%s\033[0m\n" "Fixing CHMOD Access"
+ssh -q $HOSTNAME_WEB $CMD_CHMOD
+
+

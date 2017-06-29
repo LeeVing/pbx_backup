@@ -18,7 +18,7 @@ Optional:
 
   [-i|--ignore] Can be used multiple times
     ignore list of folder names
-    example: sync-release.sh -b release/5.20.0 -i service-broadworks -i service-pbx
+    example: sync-release.sh -b release/5.20.0 -i service-ui -i service-pbx
     this example will skip broadworks and PBX repos
 
   [-n|--noalt]
@@ -27,6 +27,9 @@ Optional:
 
   [-d|--default <branch> (Default:develop)]
       if the remote branch does not exist we default to the specified branch
+
+  [-provision]
+      Provision chef, web and api_web after
 
 Report bugs to:
 up home page:
@@ -37,7 +40,7 @@ EOF
 ignoreList=()
 
 # read the options
-TEMP=`getopt -o d:fni:b: --long help,default:,force,noalt,ignore:,branch: -n 'test.sh' -- "$@"`
+TEMP=`getopt -o d:fni:b: --long help,default:,force,noalt,ignore:,branch:,provision -n 'test.sh' -- "$@"`
 eval set -- "$TEMP"
 
 # extract options and their arguments into variables.
@@ -48,7 +51,8 @@ while true ; do
                 "") shift 2 ;;
                 *) DEFAULT=$2 ; shift 2 ;;
             esac ;;
-        -f|--force) FORCE=false ; shift ;;
+        -f|--force) FORCE=true ; shift ;;
+        --provision) PROVISION=true ; shift ;;
         --help) showHelp ; shift ;;
         -n|--noalt) DEFAULT=false ; shift ;;
         -i|--ignore)
@@ -78,7 +82,7 @@ prompt_red="$prompt_bold$(tput setaf 9)" # BOLD RED
 prompt_blue="$prompt_bold$(tput setaf 27)" # BOLD RED
 
 ## declare an array variable
-declare -a folderList=('service-pbx' 'service-broadworks' 'service-auth' 'broadworks-provisioning-agent' 'service-allocation' 'fabric')
+declare -a folderList=('service-pbx' 'service-ui' 'service-auth' 'broadworks-provisioning-agent' 'service-allocation' 'chef-repo' 'voiceaxis')
 
 # Functions
 
@@ -119,7 +123,10 @@ function checkout_release_branch() {
           postMessage "${prompt_yellow}Remote Release not found."
           postMessage "Checking out $remoteDefault as $DEFAULT"
           git checkout $remoteDefault -B $DEFAULT
-    fi
+      else
+          postMessage "${prompt_green}Pulling Latest"
+          git pull
+      fi
   fi
 }
 
@@ -129,10 +136,6 @@ function processFolder(){
 
     if [ ! -d "$newFolder" ]; then
         checkoutRepo $folder
-    fi
-
-    if [ ! -f "$newFolder/.gitreview" ]; then
-        gitReview $folder
     fi
 
     normalDir="`cd "${newFolder}";pwd`"
@@ -166,20 +169,6 @@ function checkoutRepo(){
     cd $folder
     git clone ssh://$user@gerrit.coredial.com:29418/$repo && scp -p -P 29418 $user@gerrit.coredial.com:hooks/commit-msg $repo/.git/hooks/
     cd $DIR
-}
-
-function gitReview(){
-  repo=$1
-  folder=$DIR/../
-  cd $folder
-  echo \
-"[gerrit]
-host=gerrit.coredial.com
-port=29418
-project=$repo
-defaultremote=origin
-" > $repo/.gitreview
-  cd $DIR
 }
 
 function getFolderState(){
@@ -240,7 +229,7 @@ fi
 echo ""
 if [[ -z $FORCE ]]; then
     if [[ $DEFAULT == false ]]; then
-        echo "This script will reset all of your current branches $branch. If $branch is not available, nothing will change"
+        echo "This script will reset all of your current branches $branch. If $branch is not available, we will pull the latest from the checked out branch"
     else
         echo "This script will reset all of your current branches to $DEFAULT or $branch"
     fi
@@ -268,3 +257,10 @@ do
 done
 
 currentState
+
+if [[ $PROVISION == true ]]; then
+    echo "Provisioning Services"
+    vag up --provision chef_server web api_web
+    echo "fixing api web access for local container access"
+    . fix-api-web.sh
+fi

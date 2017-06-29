@@ -2,18 +2,17 @@ aptInstall = sudo apt-get install -y
 aptRepo = sudo add-apt-repository -y
 aptUpdate = sudo apt-get update
 npm = sudo npm install -g
-pycharm = pycharm-professional-2016.3.2
-phpstorm = PhpStorm-2016.3.2
-hipchat = HipChat4-4.28.0.1659-Linux
-gitBranch = release/5.26.0
+pycharm = pycharm-professional-2017.1.4
+phpstorm = PhpStorm-2017.1.4
+gitBranch = release/5.31.0
 
-all: update basics scripts
+all: update basics scripts programs dev/sync
 
-programs: composer node atom virtual virtualenvwrapper docker-compose compass
+programs: composer node virtual virtualenvwrapper docker-compose
 
-apps: chrome phpstorm pycharm hipchat sublime
+apps: chrome phpstorm pycharm hipchat sublime atom
 
-dev: dev/sync dev/chef dev/voiceaxis dev/envup
+dev: dev/sync dev/envup
 
 update:
 	$(aptUpdate)
@@ -39,11 +38,14 @@ video: update
 	$(aptInstall) nvidia-current-updates
 
 php: basics
-	$(aptInstall) php5-cli
-	$(aptInstall) php5-curl
-	$(aptInstall) php5-mysql
-	$(aptInstall) php5-pgsql
-	$(aptInstall) php5-sqlite
+	$(aptRepo) ppa:ondrej/php
+	$(aptUpdate)
+	$(aptInstall) php5.6
+	$(aptInstall) php5.6-cli
+	$(aptInstall) php5.6-curl
+	$(aptInstall) php5.6-mysql
+	$(aptInstall) php5.6-pgsql
+	$(aptInstall) php5.6-sqlite
 	touch php
 
 composer: php
@@ -58,12 +60,14 @@ ruby: basics
 node: basics
 	curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 	$(aptInstall) nodejs
-	sudo ln -s /usr/bin/nodejs /usr/bin/node
 	touch node
 
 scripts: mkbindir
 	cp dev_scripts/* $(SCRIPTHOME)
 	chmod +x $(SCRIPTHOME)/*
+	mkdir -p $(SRCHOME)/sync
+	cp -f dev_scripts/* $(SRCHOME)/sync
+	chmod +x $(SRCHOME)/sync/*
 	touch scripts
 
 node/aglio: node
@@ -178,9 +182,10 @@ pycharm: mkappsdir jdk filewatch
 	touch pycharm
 
 hipchat:
-	wget https://atlassian.artifactoryonline.com/atlassian/hipchat-apt-client/pool/$(hipchat).deb
-	sudo dpkg -i $(hipchat).deb
-	rm $(hipchat).deb
+	sudo sh -c 'echo "deb https://atlassian.artifactoryonline.com/atlassian/hipchat-apt-client $(lsb_release -c -s) main" > /etc/apt/sources.list.d/atlassian-hipchat4.list'
+	wget -O - https://atlassian.artifactoryonline.com/atlassian/api/gpg/key/public | sudo apt-key add -
+	sudo apt-get update
+	sudo apt-get install hipchat4
 	touch hipchat
 
 sublime:
@@ -200,34 +205,13 @@ chefplugins:
 	touch chefplugins
 
 dev/sync: mksrcdir
-	mkdir -p $(SRCHOME)/sync
-	cp -f sync-branch.sh $(SRCHOME)/sync/
-	chmod +x $(SRCHOME)/sync/sync-branch.sh
+	echo "please add your public ssh key to gerrit." ; \
+	echo "" ; \
+	cat ~/.ssh/id_rsa.pub ; \
+	echo "" ; \
+	read -p "Press [ENTER] when complete. or ctrl-c now and rerun make" ent ;
+	cd $(SRCHOME)/sync && bash sync-branch.sh -f --branch $(gitBranch)
 	touch sync
-
-dev/chef: mksrcdir ruby chefplugins
-	cd $(SRCHOME); \
-	if [ ! -d "chef-repo" ]; then \
-		git clone git@github.com:CoreDial/chef-repo.git; \
-		cd chef-repo; \
-		git remote rename origin upstream; \
-		cd ..; \
-	fi; \
-	cd chef-repo; \
-	git checkout -b $(gitBranch) upstream/$(gitBranch)
-	touch chef
-
-dev/voiceaxis: mksrcdir
-	cd $(SRCHOME); \
-	if [ ! -d "voiceaxis" ]; then \
-		git clone git@github.com:CoreDial/voiceaxis.git; \
-		cd voiceaxis; \
-		git remote rename origin upstream; \
-		cd ..; \
-	fi; \
-	cd voiceaxis; \
-	git checkout -b $(gitBranch) upstream/$(gitBranch)
-	touch voiceaxis
 
 dev/envup: chef sync node docker-compose
 	v up --no-provision chef_server && \
