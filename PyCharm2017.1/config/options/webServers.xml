@@ -1,0 +1,22 @@
+<application>
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="17e92989-5fbc-490c-81df-0ee6ff715e4c" name="dev13" url="http://dev13-web.dev.coredial.com">
+        <fileTransfer host="dev13-web.dev.coredial.com" port="22" privateKey="$USER_HOME$/.vagrant.d/insecure_private_key" rootFolder="/var/www/voiceaxis/" accessType="SFTP" keyPair="true" username="vagrant">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="c145f51f-5d97-4b3d-99b5-45bf4b5b7eb6" name="dev13-api" url="http://dev13-api-web.dev.coredial.com">
+        <fileTransfer host="dev13-api-web.dev.coredial.com" port="22" privateKey="$USER_HOME$/.vagrant.d/insecure_private_key" rootFolder="/var/www/voiceaxis/" accessType="SFTP" keyPair="true" username="vagrant">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</application>

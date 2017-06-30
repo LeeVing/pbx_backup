@@ -207,7 +207,7 @@ chrome: update
 jdk:
 	$(section)
 	sudo apt-get purge openjdk*
-	$(call aptRepo) ppa:webupd8team/java
+	$(aptRepo) ppa:webupd8team/java
 	$(aptUpdate)
 	echo 'debconf shared/accepted-oracle-license-v1-1 select true' | sudo debconf-set-selections
 	echo 'debconf shared/accepted-oracle-license-v1-1 seen true' | sudo debconf-set-selections

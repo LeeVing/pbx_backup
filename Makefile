@@ -1,6 +1,7 @@
 olddir=~/dotfiles_old
 files=bash_inc bashrc dockercfg fonts gnome \
-      gitconfig gitignore_global git-prompt.sh  profile
+      gitconfig gitignore_global git-prompt.sh  profile \
+      PhpStorm2017.1 PyCharm2017.1
 default_repo=~/projects
 default_apps=~/apps
 default_scripts=~/scripts

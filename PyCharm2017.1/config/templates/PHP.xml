@@ -1,0 +1,18 @@
+<templateSet group="PHP">
+  <template name="cla" value="Class $NAME$&#10;{&#10;    public function __construct($PARAMETERS$){&#10;        &#10;    }&#10;    &#10;    $END$&#10;}" description="Add Class" toReformat="false" toShortenFQNames="true">
+    <variable name="NAME" expression="capitalize(&quot;Name&quot;)" defaultValue="&quot;EnterName&quot;" alwaysStopAt="true" />
+    <variable name="PARAMETERS" expression="" defaultValue="&quot;$Enter = 'Params'&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="JSP" value="false" />
+      <option name="PHP" value="true" />
+    </context>
+  </template>
+  <template name="fori" value="for ($i = $param1$; $i &lt;= $param2$; $i++) {&#10;    $END$&#10;}" description="For Loop" toReformat="false" toShortenFQNames="true">
+    <variable name="param1" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="param2" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JSP" value="false" />
+      <option name="PHP" value="true" />
+    </context>
+  </template>
+</templateSet>
