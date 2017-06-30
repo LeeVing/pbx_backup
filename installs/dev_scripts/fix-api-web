@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-ENV=${1:-$(hostname | cut -d '-' -f 1)}
+ENV=${DEV_ENV:=${1:-$(hostname | cut -d '-' -f 1)}}
 HOSTNAME=$ENV-api-web.dev.coredial.com
 HOSTNAME_WEB=$ENV-web.dev.coredial.com
 CMD="sudo sed -i 's/Deny from all/Allow from all/g' /etc/httpd/sites-available/voiceaxis.conf && sudo /sbin/service httpd restart"
