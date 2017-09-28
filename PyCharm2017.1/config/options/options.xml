@@ -4,13 +4,25 @@
     <property name="PhpStorm.InitialConfiguration" value="true" />
     <property name="PhpStorm.dumbRunEnabled" value="true" />
     <property name="PhpStorm.initialConfigurationShown" value="true" />
-    <property name="file.chooser.recent.files" value="$USER_HOME$/dotfiles_public&#10;/home/jwatt/dotfiles" />
+    <property name="file.chooser.recent.files" value="$USER_HOME$/projects/service-pbx/cli.py&#10;/home/mruberto/.virtualenvs/service-pbx/bin/python2.7&#10;/home/mruberto/projects/service-integrations/scripts/runners/cli.py&#10;/home/mruberto/projects/service-integrations&#10;/home/mruberto/projects/broadworks-provisioning-agent&#10;/home/mruberto/projects/service-pbx&#10;/home/mruberto/dotfiles_public&#10;/home/jwatt/dotfiles" />
     <property name="DeploymentNotificationsComponent.WarnDisplayed.Java7&amp;Windows7FTPIssue" value="false" />
     <property name="lastTip" value="2" />
-    <property name="file.gist.reindex.count" value="145" />
+    <property name="file.gist.reindex.count" value="14378" />
     <property name="PLUGIN_FILTER" value="docker&#10;make&#10;makefile&#10;waka&#10;gerrit" />
     <property name="OpenOrAttachDialog.OpenMode" value="replace" />
-    <property name="fileTypeChangedCounter" value="3" />
+    <property name="fileTypeChangedCounter" value="5" />
     <property name="ignoreUltimateEdition" value="true" />
+    <property name="PyCharm.InitialConfiguration" value="true" />
+    <property name="PyCharm.InitialConfiguration.V2" value="true" />
+    <property name="PyCharm.InitialConfiguration.V3" value="true" />
+    <property name="PyCharm.InitialConfiguration.V4" value="true" />
+    <property name="PyCharm.InitialConfiguration.V5" value="true" />
+    <property name="PyCharm.InitialConfiguration.V6" value="true" />
+    <property name="PyCharm.initialConfigurationShown" value="true" />
+    <property name="ExpandBeforeRunStepsPanel" value="true" />
+    <property name="evlsprt.171" value="15dc794d65c" />
+    <property name="evlsprt2.171" value="15d7008f950" />
+    <property name="Copy.OpenInEditor" value="true" />
+    <property name="RESTClient.httpMethod" value="GET&#10;POST&#10;PUT&#10;PATCH&#10;DELETE&#10;HEAD&#10;OPTIONS" />
   </component>
 </application>

@@ -1,15 +1,15 @@
 <application>
   <component name="UISettings">
-    <option name="FONT_FACE" value="Droid Sans" />
-    <option name="FONT_SIZE" value="14" />
     <option name="EDITOR_TAB_LIMIT" value="15" />
+    <option name="FONT_FACE" value="Droid Sans" />
+    <option name="FONT_SCALE" value="1.25" />
+    <option name="FONT_SIZE" value="14" />
     <option name="HIDE_TOOL_STRIPES" value="false" />
-    <option name="SHOW_MEMORY_INDICATOR" value="true" />
-    <option name="SHOW_MAIN_TOOLBAR" value="true" />
-    <option name="OVERRIDE_NONIDEA_LAF_FONTS" value="true" />
-    <option name="SORT_LOOKUP_ELEMENTS_LEXICOGRAPHICALLY" value="true" />
-    <option name="MAX_LOOKUP_LIST_HEIGHT" value="5" />
-    <option name="PRESENTATION_MODE_FONT_SIZE" value="20" />
     <option name="MARK_MODIFIED_TABS_WITH_ASTERISK" value="true" />
+    <option name="MAX_LOOKUP_LIST_HEIGHT" value="5" />
+    <option name="OVERRIDE_NONIDEA_LAF_FONTS" value="true" />
+    <option name="PRESENTATION_MODE_FONT_SIZE" value="20" />
+    <option name="SHOW_MAIN_TOOLBAR" value="true" />
+    <option name="SORT_LOOKUP_ELEMENTS_LEXICOGRAPHICALLY" value="true" />
   </component>
 </application>

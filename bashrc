@@ -58,27 +58,27 @@ export TERM=xterm-256color
 export IBUS_ENABLE_SYNC_MODE=1
 
 # The parent directory of your git repos
-export SRCHOME=<repo_path>
+export SRCHOME=~/projects
 
 # The parent directory of your apps
-export APPSHOME=<app_path>
+export APPSHOME=~/apps
 
 # The parent directory of your scripts
-export SCRIPTHOME=<script_path>
+export SCRIPTHOME=~/scripts
 
 # Vagrant
 export VAGRANT=$SRCHOME/chef-repo/resources/vagrant/environment
-alias v="USER=<dev_env> COREDIAL_ENV=dev VAGRANT_CWD=${VAGRANT} vagrant"
+alias v="USER=dev14 COREDIAL_ENV=dev VAGRANT_CWD=${VAGRANT} vagrant"
 
 # Dev Env Configs
-export DEV_ENV=<dev_env>
-export GERRIT_USERNAME=<gerrit_username>
+export DEV_ENV=dev14
+export GERRIT_USERNAME=mruberto
 
 # Docker env vars
-export BW_PROV_AGENT_USERNAME=''
-export BW_PROV_AGENT_PASSWORD=''
-export SERVICE_PBX_DB_URL="mysql://service_pbx:dr0az3eh@<dev_env>-agents.dev.coredial.com/service_pbx"
-export SERVICE_PBX_READONLY_PORTAL_URL="mysql://voiceaxis:dr0az3eh@<dev_env>-web.dev.coredial.com/voiceaxis"
+export BW_PROV_AGENT_USERNAME='provisioning-admin'
+export BW_PROV_AGENT_PASSWORD='C0red1al!'
+export SERVICE_PBX_DB_URL="mysql://service_pbx:dr0az3eh@dev14-agents.dev.coredial.com/service_pbx"
+export SERVICE_PBX_READONLY_PORTAL_URL="mysql://voiceaxis:dr0az3eh@dev14-web.dev.coredial.com/voiceaxis"
 
 BASH_INC="$HOME/.bash_inc"
 
@@ -107,3 +107,5 @@ if [ -f "$BASH_INC/prompt.sh" ]; then
 fi
 
 eval `dircolors $BASH_INC/dircolors.sh`
+
+. /usr/local/bin/virtualenvwrapper.sh
